@@ -75,6 +75,7 @@
     "ember-source": "~7.4.0",
     "ember-template-lint": "^7.9.4",
     "ember-welcome-page": "^8.0.6",
+    "embroider-css-modules": "^4.1.7",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-ember": "^12.7.5",
