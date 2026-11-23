@@ -16,3 +16,6 @@
 
 # broccoli-debug
 /DEBUG/
+
+# generated CSS module declaration files
+*.css.d.ts

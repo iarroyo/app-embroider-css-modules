@@ -8,5 +8,13 @@ export default {
         templateSingleQuote: false,
       },
     },
+    {
+      // Preserve quotes in generated CSS module declaration files so that
+      // class names that require quoting (e.g. kebab-case) are never broken.
+      files: '*.css.d.ts',
+      options: {
+        quoteProps: 'preserve',
+      },
+    },
   ],
 };

@@ -26,6 +26,7 @@
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
+    "prelint:types": "type-css-modules --src app",
     "lint:types": "ember-tsc --noEmit",
     "start": "vite",
     "test": "vite build --mode development && testem ci --port 0"
@@ -90,6 +91,7 @@
     "stylelint": "^17.16.0",
     "stylelint-config-standard": "^40.0.0",
     "testem": "^3.21.5",
+    "type-css-modules": "^3.2.14",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.6"

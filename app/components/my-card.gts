@@ -1,9 +1,10 @@
 import { local } from 'embroider-css-modules';
 
-// Local (CSS Modules) — class names are scoped and hashed by Vite
+// Local (CSS Modules) — Vite scopes and hashes each class name at build time.
+// The import gives us a typed object: styles.card, styles.title, etc.
 import styles from './my-card.module.css';
 
-// Global — injected as-is; use plain class name strings in the template
+// Global — Vite injects this stylesheet as-is; class names are NOT hashed.
 import './my-card.css';
 
 interface MyCardSignature {
@@ -11,20 +12,39 @@ interface MyCardSignature {
     title: string;
     body: string;
     badge?: string;
+    /** When true, the title is rendered with the `.highlighted` accent color. */
+    highlighted?: boolean;
   };
   Element: HTMLDivElement;
 }
 
 const MyCard: TemplateOnlyComponent<MyCardSignature> = <template>
-  <div class={{local styles "card"}} ...attributes>
+  {{!--
+    Single class → access `styles.<name>` directly.
+    No need for {{local}} when you only need one class from the module.
+  --}}
+  <div class={{styles.card}} ...attributes>
     {{#if @badge}}
-      {{! .my-card-badge comes from the global my-card.css }}
+      {{!--
+        Global class → use a plain string literal.
+        `.my-card-badge` is defined in my-card.css and is NOT scoped.
+      --}}
       <span class="my-card-badge">{{@badge}}</span>
     {{/if}}
 
-    {{! .title and .body come from the CSS module (scoped) }}
-    <h2 class={{local styles "title"}}>{{@title}}</h2>
-    <p class={{local styles "body"}}>{{@body}}</p>
+    {{!--
+      Multiple classes → use {{local}} to merge them into one string.
+      Here "title" is always applied; "highlighted" is added only when
+      @highlighted is true. This is the scenario where {{local}} is needed.
+    --}}
+    <h2 class={{local styles "title" (if @highlighted "highlighted")}}>
+      {{@title}}
+    </h2>
+
+    {{!--
+      Single class again → direct property access is simpler and sufficient.
+    --}}
+    <p class={{styles.body}}>{{@body}}</p>
   </div>
 </template>;
 
